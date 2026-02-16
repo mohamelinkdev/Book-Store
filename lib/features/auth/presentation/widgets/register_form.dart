@@ -2,6 +2,8 @@ import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/core/constants/values_manager.dart';
 import 'package:book_store/core/utils/app_loader.dart';
 import 'package:book_store/core/utils/app_validator.dart';
+import 'package:book_store/core/widgets/app_button.dart';
+import 'package:book_store/core/widgets/app_text_form_field.dart';
 import 'package:book_store/features/auth/presentation/providers/register_view_model_provider.dart';
 import 'package:book_store/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -54,12 +56,10 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextFormField(
+          AppTextFormField(
             controller: emailController,
-            decoration: const InputDecoration(
-              labelText: AppStrings.email,
-              border: OutlineInputBorder(),
-            ),
+            labelText: AppStrings.email,
+            keyboardType: TextInputType.emailAddress,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return AppStrings.enterEmail;
@@ -73,13 +73,10 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
           const SizedBox(height: AppSize.s20),
 
-          TextFormField(
+          AppTextFormField(
             controller: passwordController,
+            labelText: AppStrings.password,
             obscureText: true,
-            decoration: const InputDecoration(
-              labelText: AppStrings.password,
-              border: OutlineInputBorder(),
-            ),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return AppStrings.enterPassword;
@@ -93,7 +90,8 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
           const SizedBox(height: AppSize.s20),
 
-          ElevatedButton(
+          AppButton(
+            text: AppStrings.register,
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 ref
@@ -104,7 +102,6 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                     );
               }
             },
-            child: const Text(AppStrings.register),
           ),
 
           const SizedBox(height: AppSize.s20),

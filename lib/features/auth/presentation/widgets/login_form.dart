@@ -2,6 +2,8 @@ import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/core/constants/values_manager.dart';
 import 'package:book_store/core/utils/app_loader.dart';
 import 'package:book_store/core/utils/app_validator.dart';
+import 'package:book_store/core/widgets/app_button.dart';
+import 'package:book_store/core/widgets/app_text_form_field.dart';
 import 'package:book_store/features/auth/presentation/providers/login_view_model_provider.dart';
 import 'package:book_store/features/auth/presentation/screens/register_screen.dart';
 import 'package:book_store/features/home/presentation/screens/home_screen.dart';
@@ -55,12 +57,10 @@ class _LoginFormState extends ConsumerState<LoginForm> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextFormField(
+          AppTextFormField(
             controller: emailController,
-            decoration: const InputDecoration(
-              labelText: AppStrings.email,
-              border: OutlineInputBorder(),
-            ),
+            labelText: AppStrings.email,
+            keyboardType: TextInputType.emailAddress,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return AppStrings.enterEmail;
@@ -74,13 +74,10 @@ class _LoginFormState extends ConsumerState<LoginForm> {
 
           const SizedBox(height: AppSize.s20),
 
-          TextFormField(
+          AppTextFormField(
             controller: passwordController,
+            labelText: AppStrings.password,
             obscureText: true,
-            decoration: const InputDecoration(
-              labelText: AppStrings.password,
-              border: OutlineInputBorder(),
-            ),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return AppStrings.enterPassword;
@@ -94,18 +91,18 @@ class _LoginFormState extends ConsumerState<LoginForm> {
 
           const SizedBox(height: AppSize.s20),
 
-          ElevatedButton(
+          AppButton(
+            text: AppStrings.login,
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 ref
                     .read(loginViewModelProvider.notifier)
                     .login(
-                      emailController.text.trim(),
-                      passwordController.text.trim(),
-                    );
+                  emailController.text.trim(),
+                  passwordController.text.trim(),
+                );
               }
             },
-            child: const Text(AppStrings.login),
           ),
 
           const SizedBox(height: AppSize.s20),
