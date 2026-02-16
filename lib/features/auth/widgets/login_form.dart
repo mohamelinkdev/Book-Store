@@ -1,6 +1,8 @@
 import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/core/constants/values_manager.dart';
 import 'package:book_store/core/utils/app_validator.dart';
+import 'package:book_store/core/widgets/app_button.dart';
+import 'package:book_store/core/widgets/app_text_form_field.dart';
 import 'package:book_store/features/auth/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -30,12 +32,10 @@ class _LoginFormState extends State<LoginForm> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextFormField(
+          AppTextFormField(
             controller: emailController,
-            decoration: const InputDecoration(
-              labelText: AppStrings.email,
-              border: OutlineInputBorder(),
-            ),
+            labelText: AppStrings.email,
+            keyboardType: TextInputType.emailAddress,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return AppStrings.enterEmail;
@@ -49,13 +49,10 @@ class _LoginFormState extends State<LoginForm> {
 
           const SizedBox(height: AppSize.s20),
 
-          TextFormField(
+          AppTextFormField(
             controller: passwordController,
+            labelText: AppStrings.password,
             obscureText: true,
-            decoration: const InputDecoration(
-              labelText: AppStrings.password,
-              border: OutlineInputBorder(),
-            ),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return AppStrings.enterPassword;
@@ -69,12 +66,13 @@ class _LoginFormState extends State<LoginForm> {
 
           const SizedBox(height: AppSize.s20),
 
-          ElevatedButton(
+          AppButton(
+            text: AppStrings.login,
             onPressed: () {
               if (_formKey.currentState!.validate()) {
+                
               }
             },
-            child: const Text(AppStrings.login),
           ),
 
           const SizedBox(height: AppSize.s20),
@@ -83,9 +81,7 @@ class _LoginFormState extends State<LoginForm> {
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                  builder: (_) => const RegisterScreen(),
-                ),
+                MaterialPageRoute(builder: (_) => const RegisterScreen()),
               );
             },
             child: const Text(AppStrings.dontHaveAccount),
