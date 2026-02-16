@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBsS8uPOCJ9Xfqxu7RsP4v87zuvqFhZ9y4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>324650977096</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.bookStore</string>
+	<key>PROJECT_ID</key>
+	<string>flutter-prep-d3128</string>
+	<key>STORAGE_BUCKET</key>
+	<string>flutter-prep-d3128.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:324650977096:ios:ca70df531a3cb7a814557d</string>
+	<key>DATABASE_URL</key>
+	<string>https://flutter-prep-d3128-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
