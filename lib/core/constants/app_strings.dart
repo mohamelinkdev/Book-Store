@@ -11,4 +11,6 @@ class AppStrings {
   static const String login = "Login";
   static const String dontHaveAccount = "Don't have an account? Register";
   static const String generalErrorMessage = "Some Thing Went Wrong";
+  static const String home = "Home";
+  static const String loading = "Loading...";
 }

@@ -17,6 +17,7 @@ class RegisterViewModel extends Notifier<RegisterState> {
 
     try {
       await _repository.register(email: email, password: password);
+      state = RegisterState(isSuccess: true);
     } on FirebaseAuthException catch (e) {
       state = RegisterState(errorMessage: e.message);
     } catch (e) {

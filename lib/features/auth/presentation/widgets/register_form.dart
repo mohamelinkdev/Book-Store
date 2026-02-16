@@ -1,17 +1,20 @@
 import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/core/constants/values_manager.dart';
+import 'package:book_store/core/utils/app_loader.dart';
 import 'package:book_store/core/utils/app_validator.dart';
+import 'package:book_store/features/auth/presentation/providers/register_view_model_provider.dart';
 import 'package:book_store/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RegisterForm extends StatefulWidget {
+class RegisterForm extends ConsumerStatefulWidget {
   const RegisterForm({super.key});
 
   @override
-  State<RegisterForm> createState() => _RegisterFormState();
+  ConsumerState<RegisterForm> createState() => _RegisterFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> {
+class _RegisterFormState extends ConsumerState<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -25,6 +28,27 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(registerViewModelProvider, (previous, next) {
+      if (next.isLoading) {
+        AppLoader.show(context);
+      } else if (previous != null && previous.isLoading) {
+        AppLoader.hide(context);
+      }
+
+      if (next.errorMessage != null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(next.errorMessage!)));
+      }
+
+      if (next.isSuccess) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const LoginScreen()),
+        );
+      }
+    });
+
     return Form(
       key: _formKey,
       child: Column(
@@ -72,6 +96,12 @@ class _RegisterFormState extends State<RegisterForm> {
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
+                ref
+                    .read(registerViewModelProvider.notifier)
+                    .register(
+                      emailController.text.trim(),
+                      passwordController.text.trim(),
+                    );
               }
             },
             child: const Text(AppStrings.register),

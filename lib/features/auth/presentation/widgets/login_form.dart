@@ -1,7 +1,10 @@
 import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/core/constants/values_manager.dart';
+import 'package:book_store/core/utils/app_loader.dart';
 import 'package:book_store/core/utils/app_validator.dart';
+import 'package:book_store/features/auth/presentation/providers/login_view_model_provider.dart';
 import 'package:book_store/features/auth/presentation/screens/register_screen.dart';
+import 'package:book_store/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -26,6 +29,27 @@ class _LoginFormState extends ConsumerState<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(loginViewModelProvider, (previous, next) {
+      if (next.isLoading) {
+        AppLoader.show(context);
+      } else if (previous != null && previous.isLoading) {
+        AppLoader.hide(context);
+      }
+
+      if (next.errorMessage != null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(next.errorMessage!)));
+      }
+
+      if (next.isSuccess) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const HomeScreen()),
+        );
+      }
+    });
+
     return Form(
       key: _formKey,
       child: Column(
@@ -41,7 +65,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
               if (value == null || value.isEmpty) {
                 return AppStrings.enterEmail;
               }
-              if (!AppValidator.isEmailValid(value)) {
+              if (!AppValidator.isEmailValid(value.trim())) {
                 return AppStrings.invalidEmail;
               }
               return null;
@@ -72,7 +96,14 @@ class _LoginFormState extends ConsumerState<LoginForm> {
 
           ElevatedButton(
             onPressed: () {
-              if (_formKey.currentState!.validate()) {}
+              if (_formKey.currentState!.validate()) {
+                ref
+                    .read(loginViewModelProvider.notifier)
+                    .login(
+                      emailController.text.trim(),
+                      passwordController.text.trim(),
+                    );
+              }
             },
             child: const Text(AppStrings.login),
           ),

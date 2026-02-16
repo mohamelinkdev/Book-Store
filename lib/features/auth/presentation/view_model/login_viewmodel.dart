@@ -17,12 +17,11 @@ class LoginViewModel extends Notifier<LoginState> {
 
     try {
       await _repository.login(email: email, password: password);
+      state = LoginState(isSuccess: true);
     } on FirebaseAuthException catch (e) {
       state = LoginState(errorMessage: e.message);
     } catch (e) {
       state = LoginState(errorMessage: AppStrings.generalErrorMessage);
     }
-
-    state = LoginState(isLoading: false);
   }
 }
