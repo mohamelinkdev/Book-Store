@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "324650977096",
+    "firebase_url": "https://flutter-prep-d3128-default-rtdb.firebaseio.com",
+    "project_id": "flutter-prep-d3128",
+    "storage_bucket": "flutter-prep-d3128.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324650977096:android:b3d19d6470ba12e714557d",
+        "android_client_info": {
+          "package_name": "com.example.book_store"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVc3vR78IbTS8wPu1et3Wa4vyoXmxw3Mk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

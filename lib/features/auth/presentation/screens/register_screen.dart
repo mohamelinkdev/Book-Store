@@ -1,7 +1,7 @@
 import 'package:book_store/core/constants/app_assets.dart';
 import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/core/constants/values_manager.dart';
-import 'package:book_store/features/auth/widgets/register_form.dart';
+import 'package:book_store/features/auth/presentation/widgets/register_form.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatelessWidget {

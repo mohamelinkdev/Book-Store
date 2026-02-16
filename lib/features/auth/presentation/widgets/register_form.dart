@@ -1,7 +1,7 @@
 import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/core/constants/values_manager.dart';
 import 'package:book_store/core/utils/app_validator.dart';
-import 'package:book_store/features/auth/screens/login_screen.dart';
+import 'package:book_store/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class RegisterForm extends StatefulWidget {

@@ -1,17 +1,18 @@
 import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/core/constants/values_manager.dart';
 import 'package:book_store/core/utils/app_validator.dart';
-import 'package:book_store/features/auth/screens/register_screen.dart';
+import 'package:book_store/features/auth/presentation/screens/register_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginForm extends StatefulWidget {
+class LoginForm extends ConsumerStatefulWidget {
   const LoginForm({super.key});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  ConsumerState<LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _LoginFormState extends ConsumerState<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -71,8 +72,7 @@ class _LoginFormState extends State<LoginForm> {
 
           ElevatedButton(
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
-              }
+              if (_formKey.currentState!.validate()) {}
             },
             child: const Text(AppStrings.login),
           ),
@@ -83,9 +83,7 @@ class _LoginFormState extends State<LoginForm> {
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                  builder: (_) => const RegisterScreen(),
-                ),
+                MaterialPageRoute(builder: (_) => const RegisterScreen()),
               );
             },
             child: const Text(AppStrings.dontHaveAccount),

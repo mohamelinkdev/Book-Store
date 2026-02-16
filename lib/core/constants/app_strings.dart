@@ -10,4 +10,5 @@ class AppStrings {
       "Password must be at least 6 characters";
   static const String login = "Login";
   static const String dontHaveAccount = "Don't have an account? Register";
+  static const String generalErrorMessage = "Some Thing Went Wrong";
 }
