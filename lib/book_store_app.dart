@@ -1,3 +1,4 @@
+import 'package:book_store/features/auth/presentation/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/theme/app_theme.dart';
@@ -11,7 +12,7 @@ class BookStoreApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
-      home: const Text("Hello"),
+      home: const RegisterScreen(),
     );
   }
 }
