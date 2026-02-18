@@ -13,6 +13,7 @@ class BooksListView extends StatelessWidget {
   final VoidCallback? onRetry;
   final void Function(Book) onBookmarkTap;
   final bool Function(String) isBookmarked;
+  final void Function(Book) onBookTap;
 
   const BooksListView({
     super.key,
@@ -24,6 +25,7 @@ class BooksListView extends StatelessWidget {
     this.onRetry,
     required this.onBookmarkTap,
     required this.isBookmarked,
+    required this.onBookTap,
   });
 
   @override
@@ -43,7 +45,7 @@ class BooksListView extends StatelessWidget {
             book: book,
             isBookmarked: isBookmarked(book.id),
             onBookmarkTap: () => onBookmarkTap(book),
-            onTap: () {},
+            onTap: () => onBookTap(book),
           );
         },
       ),

@@ -3,9 +3,11 @@ import 'package:book_store/core/widgets/empty_state.dart';
 import 'package:book_store/core/widgets/error_state.dart';
 import 'package:book_store/core/widgets/loading_state.dart';
 import 'package:book_store/core/widgets/search_bar.dart';
+import 'package:book_store/features/books/data/model/book.dart';
 import 'package:book_store/features/books/presentation/models/book_list_state.dart';
 import 'package:book_store/features/books/presentation/providers/books_list_view_mode_provider.dart';
 import 'package:book_store/features/books/presentation/providers/books_marked_view_model_provider.dart';
+import 'package:book_store/features/books/presentation/screens/book_details.dart';
 import 'package:book_store/features/books/presentation/view_model/books_book_marked_view_model.dart';
 import 'package:book_store/features/books/presentation/widgets/books_list_view.dart';
 import 'package:flutter/material.dart';
@@ -100,6 +102,14 @@ class _BooksScreenState extends ConsumerState<BooksScreen> {
         isBookmarked:
             (id) =>
                 ref.read(markedBooksViewModelProvider.notifier).isBookmarked(id),
+        onBookTap: (book) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => BookDetailsScreen(book: book),
+            ),
+          );
+        },
       );
     }
 
