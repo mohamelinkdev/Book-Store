@@ -13,4 +13,10 @@ class AppStrings {
   static const String generalErrorMessage = "Some Thing Went Wrong";
   static const String home = "Home";
   static const String loading = "Loading...";
+
+  static const String books = "Books";
+  static const String searchBooksHint = "Search books...";
+  static const String noBooksFound = "No books found. Try a different search.";
+  static const String noItemsFound = "No items found";
+  static const String retry = "Retry";
 }

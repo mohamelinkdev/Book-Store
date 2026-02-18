@@ -6,6 +6,7 @@ import 'package:book_store/core/widgets/app_button.dart';
 import 'package:book_store/core/widgets/app_text_form_field.dart';
 import 'package:book_store/features/auth/presentation/providers/login_view_model_provider.dart';
 import 'package:book_store/features/auth/presentation/screens/register_screen.dart';
+import 'package:book_store/features/books/presentation/screens/books_list_screen.dart';
 import 'package:book_store/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,7 +48,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
       if (next.isSuccess) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
+          MaterialPageRoute(builder: (_) => const BooksScreen()),
         );
       }
     });
@@ -98,9 +99,9 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 ref
                     .read(loginViewModelProvider.notifier)
                     .login(
-                  emailController.text.trim(),
-                  passwordController.text.trim(),
-                );
+                      emailController.text.trim(),
+                      passwordController.text.trim(),
+                    );
               }
             },
           ),
