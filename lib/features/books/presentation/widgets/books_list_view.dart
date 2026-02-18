@@ -11,6 +11,8 @@ class BooksListView extends StatelessWidget {
   final ScrollController scrollController;
   final Future<void> Function() onRefresh;
   final VoidCallback? onRetry;
+  final void Function(Book) onBookmarkTap;
+  final bool Function(String) isBookmarked;
 
   const BooksListView({
     super.key,
@@ -20,6 +22,8 @@ class BooksListView extends StatelessWidget {
     required this.scrollController,
     required this.onRefresh,
     this.onRetry,
+    required this.onBookmarkTap,
+    required this.isBookmarked,
   });
 
   @override
@@ -37,8 +41,8 @@ class BooksListView extends StatelessWidget {
           final book = books[index];
           return BookListItem(
             book: book,
-            isBookmarked: false,
-            onBookmarkTap: () {},
+            isBookmarked: isBookmarked(book.id),
+            onBookmarkTap: () => onBookmarkTap(book),
             onTap: () {},
           );
         },
