@@ -9,6 +9,7 @@ import 'package:book_store/features/books/presentation/providers/books_list_view
 import 'package:book_store/features/books/presentation/providers/books_marked_view_model_provider.dart';
 import 'package:book_store/features/books/presentation/screens/book_details.dart';
 import 'package:book_store/features/books/presentation/view_model/books_book_marked_view_model.dart';
+import 'package:book_store/features/books/presentation/screens/book_details.dart';
 import 'package:book_store/features/books/presentation/widgets/books_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
