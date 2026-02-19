@@ -48,7 +48,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
       if (next.isSuccess) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => const BooksScreen()),
+          MaterialPageRoute(builder: (_) => const HomeScreen()),
         );
       }
     });
