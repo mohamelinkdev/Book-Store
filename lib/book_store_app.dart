@@ -1,4 +1,3 @@
-import 'package:book_store/features/auth/presentation/screens/register_screen.dart';
 import 'package:book_store/features/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

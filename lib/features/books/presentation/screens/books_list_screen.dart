@@ -6,7 +6,6 @@ import 'package:book_store/core/widgets/search_bar.dart';
 import 'package:book_store/features/books/presentation/models/book_list_state.dart';
 import 'package:book_store/features/books/presentation/providers/books_list_view_mode_provider.dart';
 import 'package:book_store/features/books/presentation/providers/books_marked_view_model_provider.dart';
-import 'package:book_store/features/books/presentation/view_model/books_book_marked_view_model.dart';
 import 'package:book_store/features/books/presentation/widgets/books_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,8 +46,6 @@ class _BooksScreenState extends ConsumerState<BooksScreen> {
   @override
   Widget build(BuildContext context) {
     final booksState = ref.watch(booksViewModelProvider);
-    final markedBooks = ref.watch(markedBooksViewModelProvider);
-    final markedBooksNotifier = ref.read(markedBooksViewModelProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(title: const Text(AppStrings.books)),

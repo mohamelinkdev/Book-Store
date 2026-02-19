@@ -88,7 +88,12 @@ class BooksViewModel extends Notifier<BooksListState> {
   }
 
   void search(String query) {
-    _query = query;
+    final effectiveQuery =
+        query.trim().isEmpty ? ApiConstants.defaultSearch : query.trim();
+
+    if (effectiveQuery == _query) return;
+
+    _query = effectiveQuery;
     loadBooks(reset: true);
   }
 
