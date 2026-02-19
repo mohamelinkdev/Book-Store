@@ -49,20 +49,15 @@ class _BooksScreenState extends ConsumerState<BooksScreen> {
   @override
   Widget build(BuildContext context) {
     final booksState = ref.watch(booksViewModelProvider);
-    final markedBooks = ref.watch(markedBooksViewModelProvider);
-    final markedBooksNotifier = ref.read(markedBooksViewModelProvider.notifier);
 
-    return Scaffold(
-      appBar: AppBar(title: const Text(AppStrings.books)),
-      body: Column(
-        children: [
-          AppSearchBar(
-            onSearch: _onSearch,
-            hintText: AppStrings.searchBooksHint,
-          ),
-          Expanded(child: _buildContent(booksState)),
-        ],
-      ),
+    return Column(
+      children: [
+        AppSearchBar(
+          onSearch: _onSearch,
+          hintText: AppStrings.searchBooksHint,
+        ),
+        Expanded(child: _buildContent(booksState)),
+      ],
     );
   }
 
