@@ -1,3 +1,4 @@
+import 'package:book_store/core/constants/values_manager.dart';
 import 'package:book_store/features/books/data/model/book.dart';
 import 'package:book_store/features/books/presentation/providers/books_marked_view_model_provider.dart';
 import 'package:flutter/material.dart';
@@ -28,21 +29,26 @@ class BookDetailsScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.network(book.thumbnail),
-            const SizedBox(height: 16),
-            Text(
-              book.title,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            Text(book.author),
-            const SizedBox(height: 16),
-            Text(book.description),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(AppPadding.p16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.network(book.thumbnail),
+              const SizedBox(height: AppSize.s16),
+              Text(
+                book.title,
+                style: const TextStyle(
+                  fontSize: AppSize.s20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(book.author),
+              const SizedBox(height: AppSize.s16),
+              Text(book.description),
+            ],
+          ),
         ),
       ),
     );
