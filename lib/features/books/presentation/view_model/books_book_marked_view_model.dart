@@ -14,8 +14,4 @@ class MarkedBooksViewModel extends Notifier<List<Book>> {
     await repo.toggleBookmark(book);
     state = repo.getBookmarks();
   }
-
-  bool isBookmarked(String id) {
-    return state.any((b) => b.id == id);
-  }
 }
