@@ -81,7 +81,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
               if (value == null || value.isEmpty) {
                 return AppStrings.enterPassword;
               }
-              if (value.length < 6) {
+              if (!AppValidator.isPasswordValid(value.trim())) {
                 return AppStrings.passwordMinLength;
               }
               return null;

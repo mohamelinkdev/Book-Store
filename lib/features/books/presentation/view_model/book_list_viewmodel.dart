@@ -1,8 +1,8 @@
 import 'package:book_store/core/constants/api_constants.dart';
 import 'package:book_store/core/exceptions/exceptions.dart';
 import 'package:book_store/features/books/data/model/book.dart';
-import 'package:book_store/features/books/data/repository/books_repository.dart';
 import 'package:book_store/features/books/presentation/models/book_list_state.dart';
+import 'package:book_store/features/books/presentation/providers/books_repository_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class BooksViewModel extends Notifier<BooksListState> {
@@ -32,7 +32,7 @@ class BooksViewModel extends Notifier<BooksListState> {
     }
 
     try {
-      final repo = BooksRepository();
+      final repo = ref.read(booksRepositoryProvider);
 
       final books = await repo.getBooks(query: _query, page: _page);
 

@@ -3,10 +3,24 @@ import 'package:book_store/features/books/data/model/book.dart';
 import 'package:book_store/features/books/data/data_sources/books_local_data_source.dart';
 import 'package:book_store/features/books/data/data_sources/books_remote_data_source.dart';
 
-class BooksRepository {
+abstract class BooksRepositoryBase {
+  Future<List<Book>> getBooks({
+    required String query,
+    required int page,
+  });
+
+  Future<void> toggleBookmark(Book book);
+
+  List<Book> getBookmarks();
+
+  bool isBookmarked(String id);
+}
+
+class BooksRepository implements BooksRepositoryBase {
   final BooksRemoteDataSource remote = BooksRemoteDataSource();
   final BooksLocalDataSource local = BooksLocalDataSource();
 
+  @override
   Future<List<Book>> getBooks({
     required String query,
     required int page,
@@ -18,6 +32,7 @@ class BooksRepository {
     );
   }
 
+  @override
   Future<void> toggleBookmark(Book book) async {
     if (local.isBookmarked(book.id)) {
       await local.removeBookmark(book.id);
@@ -26,7 +41,9 @@ class BooksRepository {
     }
   }
 
+  @override
   List<Book> getBookmarks() => local.getBookmarks();
 
+  @override
   bool isBookmarked(String id) => local.isBookmarked(id);
 }
