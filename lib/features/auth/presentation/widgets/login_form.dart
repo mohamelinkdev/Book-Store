@@ -98,9 +98,9 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 ref
                     .read(loginViewModelProvider.notifier)
                     .login(
-                  emailController.text.trim(),
-                  passwordController.text.trim(),
-                );
+                      emailController.text.trim(),
+                      passwordController.text.trim(),
+                    );
               }
             },
           ),
