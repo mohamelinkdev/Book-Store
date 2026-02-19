@@ -3,6 +3,7 @@ import 'package:book_store/core/widgets/empty_state.dart';
 import 'package:book_store/core/widgets/error_state.dart';
 import 'package:book_store/core/widgets/loading_state.dart';
 import 'package:book_store/core/widgets/search_bar.dart';
+import 'package:book_store/features/books/data/model/book.dart';
 import 'package:book_store/features/books/presentation/models/book_list_state.dart';
 import 'package:book_store/features/books/presentation/providers/books_list_view_mode_provider.dart';
 import 'package:book_store/features/books/presentation/providers/books_marked_view_model_provider.dart';
@@ -47,16 +48,17 @@ class _BooksScreenState extends ConsumerState<BooksScreen> {
   @override
   Widget build(BuildContext context) {
     final booksState = ref.watch(booksViewModelProvider);
+    final markedBooks = ref.watch(markedBooksViewModelProvider);
 
     return Column(
       children: [
         AppSearchBar(onSearch: _onSearch, hintText: AppStrings.searchBooksHint),
-        Expanded(child: _buildContent(booksState)),
+        Expanded(child: _buildContent(booksState, markedBooks)),
       ],
     );
   }
 
-  Widget _buildContent(BooksListState state) {
+  Widget _buildContent(BooksListState state, List<Book> markedBooks) {
     if (state is Loading) {
       return const LoadingState();
     }
@@ -87,8 +89,7 @@ class _BooksScreenState extends ConsumerState<BooksScreen> {
             : null,
         onBookmarkTap: (book) =>
             ref.read(markedBooksViewModelProvider.notifier).toggle(book),
-        isBookmarked: (id) =>
-            ref.read(markedBooksViewModelProvider.notifier).isBookmarked(id),
+        isBookmarked: (id) => markedBooks.any((b) => b.id == id),
         onBookTap: (book) {
           Navigator.push(
             context,
