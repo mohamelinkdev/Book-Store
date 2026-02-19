@@ -20,4 +20,5 @@ class AppStrings {
   static const String noItemsFound = "No items found";
   static const String retry = "Retry";
   static const String noBookmarks = "No bookmarks yet";
+  static const String bookmarks = "Bookmarks";
 }
