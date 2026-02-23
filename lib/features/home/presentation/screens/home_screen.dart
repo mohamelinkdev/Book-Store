@@ -2,6 +2,7 @@ import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/core/theme/theme_mode_provider.dart';
 import 'package:book_store/features/books/presentation/screens/bookmark_screen.dart';
 import 'package:book_store/features/books/presentation/screens/books_list_screen.dart';
+import 'package:book_store/features/images_picker/presentation/screens/image_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,7 +16,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   int _index = 0;
 
-  final _pages = const [BooksScreen(), BookMarkScreen()];
+  final _pages = const [BooksScreen(), BookMarkScreen(), ImageHistoryScreen()];
 
   void _toggleThemeMode() {
     ref.read(themeModeProvider.notifier).toggle();
@@ -33,9 +34,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     final themeMode = ref.watch(themeModeProvider);
 
+    String getAppBarTitle(int index) {
+      switch (index) {
+        case 0:
+          return AppStrings.books;
+        case 1:
+          return AppStrings.bookmarks;
+        case 2:
+          return AppStrings.imageHistory;
+        default:
+          return AppStrings.home;
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(_index == 0 ? AppStrings.books : AppStrings.bookmarks),
+        title: Text(getAppBarTitle(_index)),
         actions: [
           IconButton(
             icon: Icon(_themeIcon(themeMode)),
@@ -59,6 +73,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             icon: Icon(Icons.bookmark_border),
             selectedIcon: Icon(Icons.bookmark),
             label: AppStrings.bookmarks,
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.photo_library_outlined),
+            selectedIcon: Icon(Icons.photo_library),
+            label: AppStrings.imageHistory,
           ),
         ],
       ),

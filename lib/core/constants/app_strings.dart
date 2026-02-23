@@ -21,4 +21,13 @@ class AppStrings {
   static const String retry = "Retry";
   static const String noBookmarks = "No bookmarks yet";
   static const String bookmarks = "Bookmarks";
+
+  static const String imageHistory = "Image History";
+  static const String noImagesFoundInHistory = "No images found in history.";
+  static const String errorLoadingHistory = "Error loading history: ";
+  static const String newUpload = "New Upload";
+  static const String useIconsToPickImages =
+      "Use the icons above to pick images";
+  static const String uploadComplete = "Upload Complete!";
+  static const String uploadAllSelectedImages = "Upload All Selected Images";
 }
