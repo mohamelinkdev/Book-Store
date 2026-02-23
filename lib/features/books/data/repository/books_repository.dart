@@ -7,6 +7,7 @@ abstract class BooksRepositoryBase {
   Future<List<Book>> getBooks({
     required String query,
     required int page,
+    String? lang,
   });
 
   Future<void> toggleBookmark(Book book);
@@ -24,11 +25,13 @@ class BooksRepository implements BooksRepositoryBase {
   Future<List<Book>> getBooks({
     required String query,
     required int page,
+    String? lang,
   }) async {
     return await remote.fetchBooks(
       query: query,
       startIndex: page * ApiConstants.bookListPageSize,
       pageSize: ApiConstants.bookListPageSize,
+      lang: lang,
     );
   }
 

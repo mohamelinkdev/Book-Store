@@ -12,12 +12,19 @@ class BooksRemoteDataSource {
     required String query,
     required int startIndex,
     required int pageSize,
+    String? lang,
   }) async {
-    final uri = Uri.https(ApiConstants.host, '${ApiConstants.basePath}/${ApiConstants.bookList}', {
+    final queryParams = {
       "q": query,
       "startIndex": startIndex.toString(),
       "maxResults": pageSize.toString(),
-    });
+    };
+
+    if (lang != null) {
+      queryParams["langRestrict"] = lang;
+    }
+
+    final uri = Uri.https(ApiConstants.host, '${ApiConstants.basePath}/${ApiConstants.bookList}', queryParams);
 
     try {
       final response = await http.get(uri);

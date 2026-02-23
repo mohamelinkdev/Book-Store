@@ -1,7 +1,7 @@
-import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/core/constants/values_manager.dart';
 import 'package:book_store/features/books/data/model/book.dart';
 import 'package:book_store/features/books/presentation/widgets/book_list_item.dart';
+import 'package:book_store/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class BooksListView extends StatelessWidget {
@@ -37,7 +37,7 @@ class BooksListView extends StatelessWidget {
         itemCount: books.length + 1,
         itemBuilder: (context, index) {
           if (index == books.length) {
-            return _buildBottomWidget();
+            return _buildBottomWidget(context);
           }
 
           final book = books[index];
@@ -52,7 +52,7 @@ class BooksListView extends StatelessWidget {
     );
   }
 
-  Widget _buildBottomWidget() {
+  Widget _buildBottomWidget(BuildContext context) {
     if (paginationError != null) {
       return Padding(
         padding: const EdgeInsets.all(AppPadding.p16),
@@ -67,7 +67,7 @@ class BooksListView extends StatelessWidget {
             if (onRetry != null)
               ElevatedButton(
                 onPressed: onRetry,
-                child: const Text(AppStrings.retry),
+                child: Text(AppLocalizations.of(context)!.retry),
               ),
           ],
         ),

@@ -1,8 +1,9 @@
-import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/core/theme/theme_mode_provider.dart';
+import 'package:book_store/core/localization/locale_provider.dart';
 import 'package:book_store/features/books/presentation/screens/bookmark_screen.dart';
 import 'package:book_store/features/books/presentation/screens/books_list_screen.dart';
 import 'package:book_store/features/images_picker/presentation/screens/image_history_screen.dart';
+import 'package:book_store/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -33,17 +34,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final themeMode = ref.watch(themeModeProvider);
+    final currentLocale = ref.watch(localeProvider);
+    final l10n = AppLocalizations.of(context)!;
 
     String getAppBarTitle(int index) {
       switch (index) {
         case 0:
-          return AppStrings.books;
+          return l10n.books;
         case 1:
-          return AppStrings.bookmarks;
+          return l10n.bookmarks;
         case 2:
-          return AppStrings.imageHistory;
+          return l10n.imageHistory;
         default:
-          return AppStrings.home;
+          return l10n.home;
       }
     }
 
@@ -51,6 +54,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       appBar: AppBar(
         title: Text(getAppBarTitle(_index)),
         actions: [
+          TextButton(
+            onPressed: () {
+              ref.read(localeProvider.notifier).toggleLocale();
+            },
+            child: Text(
+              currentLocale.languageCode == 'en' ? 'AR' : 'EN',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ),
           IconButton(
             icon: Icon(_themeIcon(themeMode)),
             onPressed: _toggleThemeMode,
@@ -63,21 +78,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         onDestinationSelected: (value) {
           setState(() => _index = value);
         },
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.menu_book_outlined),
-            selectedIcon: Icon(Icons.menu_book),
-            label: AppStrings.books,
+            icon: const Icon(Icons.menu_book_outlined),
+            selectedIcon: const Icon(Icons.menu_book),
+            label: l10n.books,
           ),
           NavigationDestination(
-            icon: Icon(Icons.bookmark_border),
-            selectedIcon: Icon(Icons.bookmark),
-            label: AppStrings.bookmarks,
+            icon: const Icon(Icons.bookmark_border),
+            selectedIcon: const Icon(Icons.bookmark),
+            label: l10n.bookmarks,
           ),
           NavigationDestination(
-            icon: Icon(Icons.photo_library_outlined),
-            selectedIcon: Icon(Icons.photo_library),
-            label: AppStrings.imageHistory,
+            icon: const Icon(Icons.photo_library_outlined),
+            selectedIcon: const Icon(Icons.photo_library),
+            label: l10n.imageHistory,
           ),
         ],
       ),
