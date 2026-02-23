@@ -1,6 +1,6 @@
-import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/core/constants/values_manager.dart';
 import 'package:book_store/features/images_picker/presentation/providers/storage_view_model_providers.dart';
+import 'package:book_store/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'upload_images_screen.dart';
@@ -11,12 +11,13 @@ class ImageHistoryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final historyAsyncValue = ref.watch(imageHistoryStreamProvider);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       body: historyAsyncValue.when(
         data: (images) {
           if (images.isEmpty) {
-            return const Center(child: Text(AppStrings.noImagesFoundInHistory));
+            return Center(child: Text(l10n.noImagesFoundInHistory));
           }
           return GridView.builder(
             padding: const EdgeInsets.all(AppPadding.p8),
@@ -38,7 +39,7 @@ class ImageHistoryScreen extends ConsumerWidget {
                       child: CircularProgressIndicator(
                         value: loadingProgress.expectedTotalBytes != null
                             ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
+                                  loadingProgress.expectedTotalBytes!
                             : null,
                       ),
                     );
@@ -54,7 +55,7 @@ class ImageHistoryScreen extends ConsumerWidget {
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, st) => Center(child: Text(AppStrings.errorLoadingHistory)),
+        error: (e, st) => Center(child: Text(l10n.errorLoadingHistory)),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),

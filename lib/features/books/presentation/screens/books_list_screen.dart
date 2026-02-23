@@ -1,4 +1,3 @@
-import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/core/widgets/empty_state.dart';
 import 'package:book_store/core/widgets/error_state.dart';
 import 'package:book_store/core/widgets/loading_state.dart';
@@ -9,6 +8,7 @@ import 'package:book_store/features/books/presentation/providers/books_list_view
 import 'package:book_store/features/books/presentation/providers/books_marked_view_model_provider.dart';
 import 'package:book_store/features/books/presentation/screens/book_details.dart';
 import 'package:book_store/features/books/presentation/widgets/books_list_view.dart';
+import 'package:book_store/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -49,16 +49,21 @@ class _BooksScreenState extends ConsumerState<BooksScreen> {
   Widget build(BuildContext context) {
     final booksState = ref.watch(booksViewModelProvider);
     final markedBooks = ref.watch(markedBooksViewModelProvider);
+    final l10n = AppLocalizations.of(context)!;
 
     return Column(
       children: [
-        AppSearchBar(onSearch: _onSearch, hintText: AppStrings.searchBooksHint),
-        Expanded(child: _buildContent(booksState, markedBooks)),
+        AppSearchBar(onSearch: _onSearch, hintText: l10n.searchBooksHint),
+        Expanded(child: _buildContent(booksState, markedBooks, l10n)),
       ],
     );
   }
 
-  Widget _buildContent(BooksListState state, List<Book> markedBooks) {
+  Widget _buildContent(
+    BooksListState state,
+    List<Book> markedBooks,
+    AppLocalizations l10n,
+  ) {
     if (state is Loading) {
       return const LoadingState();
     }
@@ -71,10 +76,7 @@ class _BooksScreenState extends ConsumerState<BooksScreen> {
     }
 
     if (state is NoDataError) {
-      return EmptyState(
-        message: AppStrings.noBooksFound,
-        icon: Icons.search_off,
-      );
+      return EmptyState(message: l10n.noBooksFound, icon: Icons.search_off);
     }
 
     if (state is Success) {

@@ -1,6 +1,6 @@
-import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/core/constants/values_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:book_store/l10n/app_localizations.dart';
 
 class ErrorState extends StatelessWidget {
   final String message;
@@ -34,7 +34,7 @@ class ErrorState extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: onRetry,
                 icon: const Icon(Icons.refresh),
-                label: const Text(AppStrings.retry),
+                label: Text(AppLocalizations.of(context)!.retry),
               ),
             ],
           ],

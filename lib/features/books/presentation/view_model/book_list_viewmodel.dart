@@ -2,6 +2,7 @@ import 'package:book_store/core/constants/api_constants.dart';
 import 'package:book_store/core/exceptions/exceptions.dart';
 import 'package:book_store/features/books/data/model/book.dart';
 import 'package:book_store/features/books/presentation/models/book_list_state.dart';
+import 'package:book_store/core/localization/locale_provider.dart';
 import 'package:book_store/features/books/presentation/providers/books_repository_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,7 +15,12 @@ class BooksViewModel extends Notifier<BooksListState> {
 
   @override
   BooksListState build() {
-    loadBooks(reset: true);
+    // Watch locale to refresh books when language changes
+    ref.watch(localeProvider);
+    
+    // Use Future.microtask to avoid triggering state update during build
+    Future.microtask(() => loadBooks(reset: true));
+    
     return Loading();
   }
 
@@ -33,8 +39,13 @@ class BooksViewModel extends Notifier<BooksListState> {
 
     try {
       final repo = ref.read(booksRepositoryProvider);
+      final currentLocale = ref.read(localeProvider);
 
-      final books = await repo.getBooks(query: _query, page: _page);
+      final books = await repo.getBooks(
+        query: _query,
+        page: _page,
+        lang: currentLocale.languageCode,
+      );
 
       if (books.isEmpty) {
         _hasMore = false;

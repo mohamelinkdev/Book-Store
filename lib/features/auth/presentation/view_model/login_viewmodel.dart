@@ -1,4 +1,3 @@
-import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/features/auth/presentation/models/login_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,7 +20,7 @@ class LoginViewModel extends Notifier<LoginState> {
     } on FirebaseAuthException catch (e) {
       state = LoginState(errorMessage: e.message);
     } catch (e) {
-      state = LoginState(errorMessage: AppStrings.generalErrorMessage);
+      state = LoginState(errorMessage: 'Something went wrong');
     }
   }
 }
