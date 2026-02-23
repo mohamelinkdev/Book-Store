@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 abstract class IRemoteStorageDataSource {
   Future<String?> uploadToImgBB(File image);
@@ -11,24 +11,38 @@ abstract class IRemoteStorageDataSource {
 }
 
 class RemoteStorageDatasource implements IRemoteStorageDataSource {
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final FirebaseDatabase database = FirebaseDatabase.instance;
   static const String imgbbApiKey = '388d4a2ee7b514bec6a93cb06d2ec3ac';
   static const String imgbbBaseUrl = "https://api.imgbb.com/1/upload";
+  
   @override
   Stream<List<String>> getUrlsStreamFromFirestore() {
-    return firestore
-        .collection('uploaded_images')
-        .orderBy('createdAt', descending: true)
-        .snapshots()
-        .map((snapshot) => snapshot.docs.map((doc) => doc['url'] as String).toList());
+    return database
+        .ref('uploaded_images')
+        .orderByChild('createdAt')
+        .onValue
+        .map((event) {
+      if (event.snapshot.value == null) return [];
+      
+      final Map<dynamic, dynamic> data = event.snapshot.value as Map<dynamic, dynamic>;
+      final List<String> urls = data.values
+          .map((value) => (value as Map)['url'] as String)
+          .toList();
+          
+      return urls;
+    });
   }
 
   @override
   Future<void> saveUrlToFirestore(String url) async {
-    await firestore.collection('uploaded_images').add({
-      'url': url,
-      'createdAt': FieldValue.serverTimestamp(),
-    });
+    try {
+      await database.ref('uploaded_images').push().set({
+        'url': url,
+        'createdAt': ServerValue.timestamp,
+      }).timeout(const Duration(seconds: 10));
+    } catch (e) {
+      throw Exception('Failed to save URL to Realtime Database: $e');
+    }
   }
 
   @override

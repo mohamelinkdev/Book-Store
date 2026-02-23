@@ -29,7 +29,26 @@ class ImageHistoryScreen extends ConsumerWidget {
             itemBuilder: (context, index) {
               return ClipRRect(
                 borderRadius: BorderRadius.circular(AppSize.s8),
-                child: Image.network(images[index].url, fit: BoxFit.cover),
+                child: Image.network(
+                  images[index].url,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Center(
+                      child: Icon(Icons.error, color: Colors.red),
+                    );
+                  },
+                ),
               );
             },
           );
