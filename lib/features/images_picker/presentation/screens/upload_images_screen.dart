@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/core/constants/values_manager.dart';
 import 'package:book_store/core/constants/font_manger.dart';
 import 'package:book_store/features/images_picker/presentation/providers/storage_view_model_providers.dart';
+import 'package:book_store/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,10 +14,11 @@ class UploadImagesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final uploadState = ref.watch(uploadViewModelProvider);
     final notifier = ref.read(uploadViewModelProvider.notifier);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppStrings.newUpload),
+        title: Text(l10n.newUpload),
         actions: [
           IconButton(
             icon: const Icon(Icons.photo_library),
@@ -51,7 +52,7 @@ class UploadImagesScreen extends ConsumerWidget {
         ],
       ),
       body: uploadState.selectedLocalFiles.isEmpty
-          ? const Center(child: Text(AppStrings.useIconsToPickImages))
+          ? Center(child: Text(l10n.useIconsToPickImages))
           : Column(
               children: [
                 Expanded(
@@ -106,8 +107,8 @@ class UploadImagesScreen extends ConsumerWidget {
                                     .uploadAllSelected();
                                 if (success && context.mounted) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(AppStrings.uploadComplete),
+                                    SnackBar(
+                                      content: Text(l10n.uploadComplete),
                                     ),
                                   );
                                   Navigator.pop(context);
@@ -117,9 +118,9 @@ class UploadImagesScreen extends ConsumerWidget {
                             ? const CircularProgressIndicator(
                                 color: Colors.white,
                               )
-                            : const Text(
-                                AppStrings.uploadAllSelectedImages,
-                                style: TextStyle(fontSize: FontSize.s16),
+                            : Text(
+                                l10n.uploadAllSelectedImages,
+                                style: const TextStyle(fontSize: FontSize.s16),
                               ),
                       ),
                     ),

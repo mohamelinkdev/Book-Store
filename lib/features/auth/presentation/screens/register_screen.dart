@@ -1,7 +1,7 @@
 import 'package:book_store/core/constants/app_assets.dart';
-import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/core/constants/values_manager.dart';
 import 'package:book_store/features/auth/presentation/widgets/register_form.dart';
+import 'package:book_store/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -10,7 +10,7 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text(AppStrings.register)),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.register)),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(AppPadding.p20),

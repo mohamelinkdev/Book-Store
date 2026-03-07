@@ -1,4 +1,3 @@
-import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/core/constants/values_manager.dart';
 import 'package:book_store/core/utils/app_loader.dart';
 import 'package:book_store/core/utils/app_validator.dart';
@@ -6,6 +5,7 @@ import 'package:book_store/core/widgets/app_button.dart';
 import 'package:book_store/core/widgets/app_text_form_field.dart';
 import 'package:book_store/features/auth/presentation/providers/register_view_model_provider.dart';
 import 'package:book_store/features/auth/presentation/screens/login_screen.dart';
+import 'package:book_store/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -30,6 +30,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     ref.listen(registerViewModelProvider, (previous, next) {
       if (next.isLoading) {
         AppLoader.show(context);
@@ -58,14 +59,14 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
         children: [
           AppTextFormField(
             controller: emailController,
-            labelText: AppStrings.email,
+            labelText: l10n.email,
             keyboardType: TextInputType.emailAddress,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return AppStrings.enterEmail;
+                return l10n.enterEmail;
               }
               if (!AppValidator.isEmailValid(value)) {
-                return AppStrings.invalidEmail;
+                return l10n.invalidEmail;
               }
               return null;
             },
@@ -75,14 +76,14 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
           AppTextFormField(
             controller: passwordController,
-            labelText: AppStrings.password,
+            labelText: l10n.password,
             obscureText: true,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return AppStrings.enterPassword;
+                return l10n.enterPassword;
               }
               if (!AppValidator.isPasswordValid(value.trim())) {
-                return AppStrings.passwordMinLength;
+                return l10n.passwordMinLength;
               }
               return null;
             },
@@ -91,7 +92,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
           const SizedBox(height: AppSize.s20),
 
           AppButton(
-            text: AppStrings.register,
+            text: l10n.register,
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 ref
@@ -113,7 +114,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 MaterialPageRoute(builder: (_) => const LoginScreen()),
               );
             },
-            child: const Text(AppStrings.alreadyHaveAccount),
+            child: Text(l10n.alreadyHaveAccount),
           ),
         ],
       ),

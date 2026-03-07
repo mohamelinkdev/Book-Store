@@ -1,4 +1,3 @@
-import 'package:book_store/core/constants/app_strings.dart';
 import 'package:book_store/features/auth/presentation/models/register_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,7 +20,7 @@ class RegisterViewModel extends Notifier<RegisterState> {
     } on FirebaseAuthException catch (e) {
       state = RegisterState(errorMessage: e.message);
     } catch (e) {
-      state = RegisterState(errorMessage: AppStrings.generalErrorMessage);
+      state = RegisterState(errorMessage: 'Something went wrong');
     }
 
     state = RegisterState(isLoading: false);
